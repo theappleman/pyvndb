@@ -273,16 +273,14 @@ class VNDB():
 				for line in ifh:
 					data = json.loads(line)
 					if field['value'] == data[field['name']]:
-						for i in flags.split(','):
-							try:
+						try:
+							for i in flags.split(','):
 								if data['flags'].find(i) == -1:
 									raise NotFound
-							except NotFound:
-								return None
+						except NotFound:
+							return None
 						if not data['time'] < time.time() - 60*60*24*28:
 							raise Found
-						else:
-							break
 			except Found:
 				return [data]
 		return None
@@ -300,19 +298,19 @@ class VNDB():
 		}
 
 		request = None
-		for i,j in type.items():
-			try:
+		try:
+			for i,j in type.items():
 				if sstr.startswith(i) and sstr[1:].isdigit():
 					ftype = j
 					flags += ",details"
 					raise Found
-			except Found:
-				id = int(sstr[1:])
-				check = self.rcache(ftype, {"name":"id","value":id}, flags)
-				if check == None:
-					request = "{} {} (id = {})".format(j, flags, id)
-				else:
-					return {"num": 1, "more": False, "items": check}
+		except Found:
+			id = int(sstr[1:])
+			check = self.rcache(ftype, {"name":"id","value":id}, flags)
+			if check == None:
+				request = "{} {} (id = {})".format(j, flags, id)
+			else:
+				return {"num": 1, "more": False, "items": check}
 		if request == None:
 			request = '{} {} (search ~ "{}")'.format(ftype, flags, sstr)
 		results = self.sendrecv(VNDB.build("get", request))
