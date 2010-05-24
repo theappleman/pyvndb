@@ -12,8 +12,8 @@ Getting started
 
 >>> from vndb import VNDB
 >>> vndb = VNDB()
->>> result = vndb.search("star", flags="basic,detailed")
->>> vndb.results(\**res) # Pretty print
+>>> result = vndb.search("star", flags="basic,details")
+>>> vndb.results(\**result) # Pretty print
 
 
 Roadmap
