@@ -44,6 +44,8 @@ class VNDB():
 		if self.status == "disconnected":
 			self.connect()
 
+		self.chkconfig()
+
 		request = '''
 		{{
 			"protocol": {:},
@@ -364,8 +366,8 @@ class VNDB():
 			if not i == out['num']:
 				print()
 	
-	def __init__(self):
-		home = os.path.join(os.getenv('HOME'), '.vnda')
+	def chkconfig(self):
+		home = self.home # XXX
 		cname = os.path.join(home, 'config')
 		if not os.path.isdir(home):
 			os.mkdir(home)
@@ -404,10 +406,14 @@ class VNDB():
 
 		self.username = username
 		self.password = password
-		self.home = home
 		self.protocol = 1
 		self.clientver = 0.1
 		self.client = "pyvndb"
+
+	def __init__(self):
+		# Important variables
+
+		self.home = os.path.join(os.getenv('HOME'), '.vnda')
 		self.status = "disconnected"
 		self.endpoint = ("api.vndb.org", 19534)
 
