@@ -27,6 +27,7 @@ import json
 from socket import socket as ss
 from getpass import getpass as gp
 from configparser import ConfigParser as cp
+import configparser
 
 class VNDB():
 	"""VNDB API implementation"""
@@ -380,13 +381,13 @@ class VNDB():
 	
 		try:
 			username = config.get("user", "username")
-		except cp.NoOptionError:
+		except configparser.NoOptionError:
 			username = input("Username: ")
 			changed = True
 	
 		try:
 			password = config.get("user", "password")
-		except cp.NoOptionError:
+		except configparser.NoOptionError:
 			password = gp()
 			changed = True
 	
