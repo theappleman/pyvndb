@@ -362,7 +362,15 @@ class VNDB():
 			out['items'][i].pop("time")
 			out['items'][i].pop("flags")
 			for key, value in out['items'][i].items():
-				presults(key, value)
+				if not key == "description":
+					presults(key, value)
+			try:
+				value = out['items'][i].pop('description')
+			except KeyError:
+				pass
+			else:
+				if value:
+					presults('description', value)
 			if not i == out['num']:
 				print()
 	
