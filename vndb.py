@@ -146,7 +146,31 @@ class VNDB():
 		def hget(data):
 			"""Handler for parsing get commands"""
 			def vn(flags, filters, options):
-				return "send"
+				def chkflags(flags):
+					uflags = ["basic",
+						  "detailed",
+						  "anime",
+						  "relations"]
+					gflags = flags.split(",")
+					for i in gflags:
+						if i not in uflags:
+							return "no-send"
+					return "send"
+				def chkfilters(filters):
+					return "send"
+				def chkoptions(options):
+					return "send"
+
+				if (chkflags(flags),
+					chkfilters(filters),
+					chkoptions(options)
+				) == (	"send",
+					"send",
+					"send"):
+					return "send"
+				else:
+					return "no-send"
+
 			def release(flags, filters, options):
 				return "send"
 			def producer(flags, filters, options):
