@@ -178,6 +178,7 @@ class VNDB():
 
 			data = data.split(" ", 3)
 			data[3:] = data[3].rsplit(")", 1)
+			data[4].lstrip()
 			types = {
 				"vn": vn,
 				"release": release,
