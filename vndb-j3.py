@@ -379,7 +379,7 @@ class VNDB():
 			os.remove(tf)
 		os.rename(tf+".tmp", tf)
 
-	def results(self, **out):
+	def results(self, out):
 		def presults(key, value):
 			print(key, ": ", sep="", end="")
 			print(value)
@@ -459,7 +459,7 @@ if __name__ == "__main__":
 				continue
 			res = vndb.search(line)
 			if not res == None:
-				vndb.results(**res)
+				vndb.results(res)
 			else:
 				print("Cannot comply.")
 		except (EOFError, KeyboardInterrupt):
