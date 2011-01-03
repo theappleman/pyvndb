@@ -207,14 +207,23 @@ class vndb():
 	
 	def results(self, out):
 		def presults(key, value, tab=""):
+			if value == None:
+				return False
 			print tab + key + ": ",
 			if type(value) is list:
 				print ", ".join([i.encode() for i in value])
 			elif type(value) is dict:
+				nl = False
 				for k,v in value.items():
-					presults(k, v, tab + "\t")
+					if presults(k, v, tab + "\t"):
+						nl = True
+					else:
+						nl = nl == True
+				if not nl:
+					print
 			else:
 				print value
+			return True
 		for i in range(out['num']):
 			out['items'][i].pop("time")
 			out['items'][i].pop("_id")
