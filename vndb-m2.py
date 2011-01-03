@@ -225,19 +225,19 @@ class vndb():
 				print value
 			return True
 		for i in range(out['num']):
-			out['items'][i].pop("time")
-			out['items'][i].pop("_id")
-			out['items'][i].pop("flags")
-			for key,value in out['items'][i].items():
-				if not key == "description":
-					presults(key, value)
-			try:
-				value = out['items'][i].pop('description')
-			except KeyError:
-				pass
-			else:
-				if value:
-					presults('description', value)
+			item = out['items'][i]
+			for j in ["title", "name", "original", "released", #vr, p, vr, vr
+				"type", "patch", "freeware", "doujin", #rp, r
+				"languages", "orig_lang", "language", #vr, v, p
+				"website", "notes", "minage", "gtin", #r
+				"catalog",  "platforms", "media", #r, vr, r
+				"aliases", "length", "description", #vp, v, vp
+				"vn", "producers", #r
+				"links", "image", "anime",
+				"relations"]: #vp
+				if item.has_key(j) and not item.get(j) == None:
+					presults(j, item[j])
+
 			if not i == out['num']:
 				print
 
