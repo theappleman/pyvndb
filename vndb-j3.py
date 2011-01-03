@@ -336,7 +336,7 @@ class VNDB():
 			id = int(sstr[1:])
 			check = self.rcache(ftype, {"name":"id","value":id}, flags)
 			if check == None:
-				request = "{} {} (id = {})".format(j, flags, id)
+				request = "{} {} (id = {})".format(ftype, flags, id)
 			else:
 				return {"num": 1, "more": False, "items": check}
 		if request == None:
