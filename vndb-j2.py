@@ -240,7 +240,11 @@ class vndb():
 				return False
 			print tab + key + ": ",
 			if type(value) is list:
-				print ", ".join([i.encode() for i in value])
+				try:
+					print ", ".join([i for i in value])
+				except TypeError:
+					# For dict types
+					print value
 			elif type(value) is dict:
 				nl = False
 				for k,v in value.items():
