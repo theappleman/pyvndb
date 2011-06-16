@@ -71,17 +71,19 @@ class vndb():
 		return string.split(",")
 
 	def save(self, table, data, flags):
-		#data.update({"time": time.time()})
-		#data.update({"flags": [i for i in self.csvset(flags)]})
 		"""save /data/ (with flags /flags/) to /table/."""
 
 		class ToWrite(Exception): pass
+
+		data['time'] = time.time()
+		data['flags'] = flags
 
 		tf = os.path.join(self.home, table)
 		if not os.path.isfile(tf): # File non-existant
 			open(tf, "w").close()
 		with open(tf, "r") as ifh:
 			with open(tf + ".tmp", "w") as ofh:
+				written = False
 				for line in ifh:
 					line = json.loads(line)
 					try:
@@ -93,7 +95,10 @@ class vndb():
 								raise ToWrite
 					except ToWrite:
 						line = data
-					ofh.write(json.dumps(line) + "\n")
+					finally:
+						ofh.write(json.dumps(line) + "\n")
+				if written == False:
+					ofh.write(json.dumps(data) + "\n")
 
 		if os.name == "nt":
 			os.remove(tf)
@@ -211,7 +216,7 @@ class vndb():
 				flags)
 
 			if check == 1:
-				return {"num": 1, "more": False, "items": res}
+				return {"num": 1, "more": False, "items": [res]}
 			else:
 				request = '%s %s (id = %s)' % (stype, flags, iid)
 
