@@ -286,7 +286,7 @@ if __name__ == "__main__":
 			if not res['num'] == 0:
 				vn.results(res)
 			else:
-				print "Cannot comply."
+				print "No items found."
 		except (EOFError, KeyboardInterrupt):
 			break
 	if vn.status == "connected" or vn.status == "logged-in":
