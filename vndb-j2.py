@@ -275,6 +275,24 @@ class vndb():
 
 if __name__ == "__main__":
 	vn = vndb()
-	vn.results(vn.search("v5"))
-	vn.results(vn.search("museum"))
-	vn.results(vn.search("fluffy", stype="producer", flags="details"))
+
+	# Here are a couple of example applications for the class
+	while True:
+		try:
+			line = raw_input("Search: ")
+			if line == "":
+				continue
+			res = vn.search(line)
+			if not res['num'] == 0:
+				vn.results(res)
+			else:
+				print "Cannot comply."
+		except (EOFError, KeyboardInterrupt):
+			break
+	if vn.status == "connected" or vn.status == "logged-in":
+		vn.logout()
+	print
+
+#	vn.results(vn.search("v5"))
+#	vn.results(vn.search("museum"))
+#	vn.results(vn.search("fluffy", stype="producer", flags="details"))
