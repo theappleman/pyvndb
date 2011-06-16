@@ -3,7 +3,7 @@
 import os
 import time
 import simplejson as json
-from socket  import socket as ss
+from socket import socket as ss
 
 class vndb():
 	"""VNDB API implementation"""
