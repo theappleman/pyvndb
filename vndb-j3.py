@@ -148,7 +148,7 @@ class VNDB():
 			def vn(flags, filters, options):
 				def chkflags(flags):
 					uflags = ["basic",
-						  "detailed",
+						  "details",
 						  "anime",
 						  "relations"]
 					gflags = flags.split(",")
@@ -457,7 +457,7 @@ if __name__ == "__main__":
 			line = input("Search: ")
 			if line == "":
 				continue
-			res = vndb.search(line)
+			res = vndb.search(line,flags="basic,details")
 			if not res == None:
 				vndb.results(res)
 			else:
